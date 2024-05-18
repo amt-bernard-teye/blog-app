@@ -1,3 +1,6 @@
+import { APP_PORT } from "../constants/env.constant";
+import { authSwaggerConfig } from "./auth.swagger";
+
 const swaggerConfiguration = {
     openapi: "3.0.1",
     info: {
@@ -7,14 +10,25 @@ const swaggerConfiguration = {
     },
     servers: [
         {
-            url: "http://localhost:3000"
+            url: `http://localhost:${APP_PORT}/api`,
+            description: "Local Server"
         }
     ],
     paths: {
-
+        ...authSwaggerConfig,
     },
+    tags: [
+        {
+            name: "Auth"
+        }
+    ],
     components: {
-        
+        securitySchemes: {
+            BearerAuth: {
+                type: "http",
+                scheme: "bearer"
+            }
+        }
     }
 }
 
