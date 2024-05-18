@@ -8,7 +8,9 @@ import path from "path";
 dotenv.config();
 
 import { APP_PORT } from "./constants/env.constant";
+import { DatabaseSeeder } from "./seeders/database.seeder";
 import { swaggerConfiguration } from "./swagger/config.swagger";
+import { authRoute } from "./routes/auth.route";
 
 const app = express();
 
@@ -22,7 +24,10 @@ app.use(express.static(path.join(__dirname, "uploads")));
 
 app.use("/api-docs", swagger.serve, swagger.setup(swaggerConfiguration));
 
+app.use("/api", authRoute);
+
 app.listen(APP_PORT, () => {
+    DatabaseSeeder.run();
     console.log(`Server running on port: http://localhost:${APP_PORT}`);
     console.log(`Docs running on port: http://locahost:${APP_PORT}/api-docs`);
 });
