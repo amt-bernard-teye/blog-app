@@ -12,6 +12,7 @@ import { DatabaseSeeder } from "./seeders/database.seeder";
 import { swaggerConfiguration } from "./swagger/config.swagger";
 import { authRoute } from "./routes/auth.route";
 import { categoryRoute } from "./routes/category.route";
+import { tagRoute } from "./routes/tag.route";
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use("/api-docs", swagger.serve, swagger.setup(swaggerConfiguration));
 
 app.use("/api", authRoute);
 app.use("/api", categoryRoute);
+app.use("/api", tagRoute);
 
 app.listen(APP_PORT, () => {
     DatabaseSeeder.run();
