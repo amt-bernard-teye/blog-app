@@ -22,7 +22,7 @@ categoryRoute.post(
     validateText("name")
         .custom(async (value) => {
             const categoryModel = new CategoryModel();
-            const existingCategory = await categoryModel.findByName(value);
+            const existingCategory = await categoryModel.find(value);
             if (existingCategory) {
                 throw new Error("No duplicates allowed");
             }

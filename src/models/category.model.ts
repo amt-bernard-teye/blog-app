@@ -58,31 +58,27 @@ export class CategoryModel extends Database<Category, CategoryProp>
         await this.close();
     }
 
-    async find(entityId: number | string): Promise<Category | null> {
+    async find(value: number | string): Promise<Category | null> {
         const prisma = this.open();
+        let foundCategory: Category | null = null;
 
-        const foundCategory = await prisma.category.findFirst({
-            where: {
-                id: +entityId,
-                status: UsageStatus.ACTIVE
-            }
-        });
-
-        await this.close();
-        return foundCategory;
-    }
-
-    async findByName(entityName: string): Promise<Category | null> {
-        const prisma = this.open();
-
-        const foundCategory = await prisma.category.findFirst({
-            where: {
-                name: {
-                    contains: entityName,
-                    mode: "insensitive"
+        if(typeof value === "number") {
+            foundCategory = await prisma.category.findFirst({
+                where: {
+                    id: +value,
+                    status: UsageStatus.ACTIVE
                 }
-            }
-        });
+            });
+        } else {
+            foundCategory = await prisma.category.findFirst({
+                where: {
+                    name: {
+                        contains: value,
+                        mode: "insensitive"
+                    }
+                }
+            })
+        }
 
         await this.close();
         return foundCategory;
@@ -92,7 +88,7 @@ export class CategoryModel extends Database<Category, CategoryProp>
         const prisma = this.open();
 
         const categories = await prisma.category.findMany({
-            skip: page,
+            skip: page * rows,
             take: rows,
             where: {
                 status: UsageStatus.ACTIVE
