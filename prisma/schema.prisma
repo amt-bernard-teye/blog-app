@@ -49,3 +49,11 @@ model Category {
 
   @@map("categories")
 }
+
+model Tag {
+  id Int @id @default(autoincrement())
+  name String
+  status UsageStatus @default(ACTIVE)
+
+  @@map("tags")
+}
