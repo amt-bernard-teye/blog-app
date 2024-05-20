@@ -36,3 +36,14 @@ model User {
 
   @@map("users")
 }
+
+enum UsageStatus {
+  ACTIVE
+  HIDDEN
+}
+
+model Category {
+  id Int @id @default(autoincrement())
+  name String
+  status UsageStatus @default(ACTIVE)
+}
