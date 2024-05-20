@@ -46,4 +46,6 @@ model Category {
   id Int @id @default(autoincrement())
   name String
   status UsageStatus @default(ACTIVE)
+
+  @@map("categories")
 }
