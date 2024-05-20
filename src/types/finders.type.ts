@@ -3,5 +3,5 @@ export interface ISingleFinder<Type> {
 }
 
 export interface IMultipleFinders<Type> {
-    findAll: () => Promise<Type[]>;
+    findAll: (page: number, rows: number) => Promise<Type[]>;
 }
