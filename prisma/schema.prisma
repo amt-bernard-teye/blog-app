@@ -46,6 +46,7 @@ model Category {
   id Int @id @default(autoincrement())
   name String
   status UsageStatus @default(ACTIVE)
+  posts Post[]
 
   @@map("categories")
 }
@@ -54,6 +55,35 @@ model Tag {
   id Int @id @default(autoincrement())
   name String
   status UsageStatus @default(ACTIVE)
+  posts PostTag[]
 
   @@map("tags")
+}
+
+enum PostStatus {
+  ACTIVE
+  HIDDEN
+  REPORTED
+}
+
+model Post {
+  id Int @id @default(autoincrement())
+  title String @unique
+  description String
+  status UsageStatus @default(ACTIVE)
+  categoryId Int
+  category Category @relation(fields: [categoryId], references: [id])
+  tags PostTag[]
+
+  @@map("posts")
+}
+
+model PostTag {
+  id Int @id @default(autoincrement())
+  postId Int
+  post Post @relation(fields: [postId], references: [id])
+  tagId Int
+  tag Tag @relation(fields: [tagId], references: [id])
+
+  @@map("post_tag")
 }
