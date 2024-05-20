@@ -1,5 +1,7 @@
 import { APP_PORT } from "../constants/env.constant";
 import { authSwaggerConfig } from "./auth.swagger";
+import { categorySwaggerConfig } from "./category.swagger";
+import { tagSwaggerConfig } from "./tag.swagger";
 
 const swaggerConfiguration = {
     openapi: "3.0.1",
@@ -16,13 +18,43 @@ const swaggerConfiguration = {
     ],
     paths: {
         ...authSwaggerConfig,
+        ...categorySwaggerConfig,
+        ...tagSwaggerConfig
     },
     tags: [
-        {
-            name: "Auth"
-        }
+        { name: "Auth" },
+        { name: "Category" },
+        { name: "Tag" },
     ],
     components: {
+        schemas: {
+            Category: {
+                type: "object",
+                properties: {
+                    id: {
+                        type: "number",
+                        example: 1
+                    },
+                    name: {
+                        type: "string",
+                        example: "Entertainment"
+                    }
+                }
+            },
+            Tag: {
+                type: "object",
+                properties: {
+                    id: {
+                        type: "number",
+                        example: 1
+                    },
+                    name: {
+                        type: "string",
+                        example: "Programming"
+                    }
+                }
+            }
+        },
         securitySchemes: {
             BearerAuth: {
                 type: "http",
