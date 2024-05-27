@@ -1,3 +1,5 @@
+import { serverError } from "./error-helper.swagger";
+
 const validationError = {
     "422": {
         description: "Validation Error",
@@ -35,22 +37,6 @@ const validationError = {
             }
         }
     },
-}
-
-const serverError = {
-    "500": {
-        description: "Server Error",
-        content: {
-            "application/json": {
-                schema: {
-                    type: "object",
-                    example: {
-                        message: "Something went wrong"
-                    }
-                }
-            }
-        }
-    }
 }
 
 const getCategories = {
