@@ -1,9 +1,10 @@
-import { param } from "express-validator";
+import { body, param } from "express-validator";
 
 import { TagModel } from "../models/tag.model";
 
-export function validateTagId() {
-    return param("id")
+export function validateTagId(location: "body" | "param", key: string) {
+    let validator = location === "param" ? param(key) : body(key);
+    return validator
         .trim()
         .notEmpty()
         .withMessage("Tag Id is required")
