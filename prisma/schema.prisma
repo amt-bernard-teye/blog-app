@@ -71,7 +71,7 @@ model Post {
   title String @unique
   description String
   image String
-  status UsageStatus @default(ACTIVE)
+  status PostStatus @default(ACTIVE)
   categoryId Int
   category Category @relation(fields: [categoryId], references: [id])
   tags PostTag[]
