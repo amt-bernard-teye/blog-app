@@ -23,4 +23,5 @@ export abstract class ValidateTokenMiddleware {
             });
         }
     }
+
 }
