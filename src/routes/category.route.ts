@@ -35,7 +35,7 @@ categoryRoute.post(
 categoryRoute.put(
     "/categories/:id",
     EnsureRoleIsAdminMiddleware.run,
-    validateCategoryId(),
+    validateCategoryId("param", "id"),
     validateText("name").escape(),
     RequestMiddleware.run,
     CategoryController.update
@@ -44,7 +44,7 @@ categoryRoute.put(
 categoryRoute.delete(
     "/categories/:id",
     EnsureRoleIsAdminMiddleware.run,
-    validateCategoryId(),
+    validateCategoryId("param", "id"),
     RequestMiddleware.run,
     CategoryController.destroy
 );

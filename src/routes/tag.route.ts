@@ -34,7 +34,7 @@ tagRoute.post(
 tagRoute.put(
     "/tags/:id",
     EnsureRoleIsAdminMiddleware.run,
-    validateTagId(),
+    validateTagId("param", "id"),
     validateText("name").escape(),
     RequestMiddleware.run,
     TagController.update
@@ -43,7 +43,7 @@ tagRoute.put(
 tagRoute.delete(
     "/tags/:id",
     EnsureRoleIsAdminMiddleware.run,
-    validateTagId(),
+    validateTagId("param", "id"),
     RequestMiddleware.run,
     TagController.destroy
 );
