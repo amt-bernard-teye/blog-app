@@ -2,6 +2,7 @@ import { APP_PORT } from "../constants/env.constant";
 import { authSwaggerConfig } from "./auth.swagger";
 import { categorySwaggerConfig } from "./category.swagger";
 import { tagSwaggerConfig } from "./tag.swagger";
+import { postSwaggerConfig } from "./post.swagger";
 
 const swaggerConfiguration = {
     openapi: "3.0.1",
@@ -19,12 +20,14 @@ const swaggerConfiguration = {
     paths: {
         ...authSwaggerConfig,
         ...categorySwaggerConfig,
-        ...tagSwaggerConfig
+        ...tagSwaggerConfig,
+        ...postSwaggerConfig
     },
     tags: [
         { name: "Auth" },
         { name: "Category" },
         { name: "Tag" },
+        { name: "Post" },
     ],
     components: {
         schemas: {
@@ -51,6 +54,36 @@ const swaggerConfiguration = {
                     name: {
                         type: "string",
                         example: "Programming"
+                    }
+                }
+            },
+            Post: {
+                type: "object",
+                properties: {
+                    id: {
+                        type: "number",
+                        example: 1
+                    },
+                    title: {
+                        type: "string",
+                        example: "How to get away with murder"
+                    },
+                    description: {
+                        type: "string",
+                        example: "Some description"
+                    },
+                    category: {
+                        type: "object",
+                        example: {
+                            id: 1,
+                            name: "Sports"
+                        }
+                    },
+                    tags: {
+                        type: "array",
+                        items: {
+                            "$ref": "#/components/schemas/Tag"
+                        }
                     }
                 }
             }
